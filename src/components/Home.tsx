@@ -16,7 +16,7 @@ const Home: React.FC = () => {
             }
 
             try {
-                const response = await axios.get('http://localhost:5000/api/protected', {
+                const response = await axios.get('https://client-soo-backend.onrender.com/api/protected', {
                     headers: { Authorization: `Bearer ${token}` },
                 });
 
