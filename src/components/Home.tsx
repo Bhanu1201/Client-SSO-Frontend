@@ -6,31 +6,31 @@ const Home: React.FC = () => {
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
- useEffect(() => {
+useEffect(() => {
     const fetchProtectedData = async () => {
         const token = localStorage.getItem('token');
 
         if (!token) {
             setError('No token found. Redirecting to login...');
-            navigate('/login');  // Redirect to login if no token
-            return console.log("token removed");
+            navigate('/login', { replace: true }); // Redirect properly
+            return;
         }
 
         try {
-            const response = await axios.get('https://client-soo-backend.onrender.com/api/protected', {
+            await axios.get('https://client-soo-backend.onrender.com/api/protected', {
                 headers: { Authorization: `Bearer ${token}` },
             });
 
-            console.log('Protected Data:', response.data);
         } catch (err) {
             console.error('Error fetching protected data:', err);
             setError('Failed to fetch protected data');
-            navigate('/login'); // Redirect to login if token is invalid
+            navigate('/login', { replace: true }); // Redirect properly
         }
     };
 
     fetchProtectedData();
 }, []);
+
 
    const handleLogout = () => {
     localStorage.removeItem('token'); // Remove token
