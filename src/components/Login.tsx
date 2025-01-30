@@ -8,7 +8,7 @@ const Login: React.FC = () => {
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
-   const handleLogin = async (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
         const response = await axios.post('https://client-soo-backend.onrender.com/api/login', {
@@ -16,16 +16,15 @@ const Login: React.FC = () => {
             password,
         });
 
-        // Store token
+        // Store token in local storage
         localStorage.setItem('token', response.data.token);
 
-        // Redirect to Home page without refresh
+        // Redirect to Home page immediately
         navigate('/');
     } catch (err) {
         setError('Invalid credentials');
     }
 };
-
 
     return (
         <div className="d-flex justify-content-center align-items-center vh-100 bg-light">
