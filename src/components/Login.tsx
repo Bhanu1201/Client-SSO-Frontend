@@ -57,7 +57,7 @@ const Login: React.FC = () => {
 
                         {/* Submit Button */}
                         <div className="d-grid">
-                            <button type="submit" className="btn btn-primary">
+                            <button type="submit" onClick={handleLogin} className="btn btn-primary">
                                 Login
                             </button>
                         </div>
