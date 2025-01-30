@@ -20,7 +20,7 @@ const Login: React.FC = () => {
         localStorage.setItem('token', response.data.token);
 
         // Redirect to Home page immediately
-        navigate('/');
+        navigate('https://client-sso-frontend.onrender.com');
     } catch (err) {
         setError('Invalid credentials');
     }
