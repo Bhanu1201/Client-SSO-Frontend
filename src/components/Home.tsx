@@ -68,7 +68,8 @@ useEffect(() => {
                     </div>
                 </header>
 
-                Embedded Sisense Dashboard */}
+            {/* Embedded Sisense Dashboard  */}
+
                  <div>
                     <iframe 
                         width="100%" 
