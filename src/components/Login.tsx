@@ -2,16 +2,16 @@ import { useState } from "react";
 import axios from "axios";
 
 export default function Login() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState(null);
-  const [sisenseUrl, setSisenseUrl] = useState(null);
+  const [username, setUsername] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [error, setError] = useState<string | null>(null);
+  const [sisenseUrl, setSisenseUrl] = useState<string | null>(null);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
-
-    try {
+    
+     try {
       const response = await axios.post("https://client-soo-backend.onrender.com/api/login", {
         username,
         password,
