@@ -7,7 +7,7 @@ export default function Login() {
   const [error, setError] = useState(null);
   const [sisenseUrl, setSisenseUrl] = useState(null);
 
-  const handleLogin = async (e) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
 
