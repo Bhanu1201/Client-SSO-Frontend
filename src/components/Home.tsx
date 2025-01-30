@@ -74,7 +74,7 @@ useEffect(() => {
                     <iframe 
                         width="100%" 
                         height="550px"  
-                        src="https://atomicworks.sisensepoc.com/SSO/app/main/home?filters=usage?embed=true" 
+                        src="https://atomicworks.sisensepoc.com/SSO/app/main/dashboards/679b49213c91a80033087d20?embed=true" 
                         title="Sisense Dashboard"
                     ></iframe>
                 </div>
