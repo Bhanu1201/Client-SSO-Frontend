@@ -32,11 +32,11 @@ const Home: React.FC = () => {
     fetchProtectedData();
 }, []);
 
-    const handleLogout = () => {
-        localStorage.removeItem('token'); // Remove token
-        navigate('/login'); // Redirect to login page
-    };
-
+   const handleLogout = () => {
+    localStorage.removeItem('token'); // Remove token
+    navigate('/login', { replace: true }); // Redirect to login page immediately
+};
+    
     return (
         <>
             {/* Navbar */}
