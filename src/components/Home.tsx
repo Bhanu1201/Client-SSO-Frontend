@@ -70,15 +70,15 @@ useEffect(() => {
 
             {/* Embedded Sisense Dashboard  */}
 
-                 <div>
+{/*                  <div>
                     <iframe 
                         width="100%" 
                         height="550px"  
-                        src="https://atomicworks.sisensepoc.com/SSO/app/main#/dashboards/679b49213c91a80033087d20?embed=true&l=true" 
+                        src="https://atomicworks.sisensepoc.com/SSO/app/main#/dashboards/679b49213c91a80033087d20?embed=true" 
                         title="Sisense Dashboard"
                     ></iframe>
                 </div>
-
+ */}
                 {/* Features Section */}
                 <section id="features" className="py-5">
                     <div className="container">
