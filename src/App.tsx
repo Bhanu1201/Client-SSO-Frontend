@@ -18,11 +18,12 @@ const App: React.FC = () => {
     return (
         <Router>
             <Routes>
-                {/* Redirect to home if authenticated */}
-                <Route path="/login" element={isAuthenticated ? <Navigate to="/" replace /> : <Login />} />
-                
+                               
                 {/* Redirect to login if not authenticated */}
                 <Route path="/" element={isAuthenticated ? <Home /> : <Navigate to="/login" replace />} />
+
+                {/* Redirect to home if authenticated */}
+                <Route path="/login" element={isAuthenticated ? <Navigate to="/" replace /> : <Login />} />
             </Routes>
         </Router>
     );
