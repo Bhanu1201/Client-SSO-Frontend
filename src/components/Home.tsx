@@ -24,6 +24,7 @@ useEffect(() => {
         } catch (err) {
             console.error('Error fetching protected data:', err);
             setError('Failed to fetch protected data');
+            localStorage.removeItem('token');
             navigate('/login', { replace: true }); // Redirect properly
         }
     };
