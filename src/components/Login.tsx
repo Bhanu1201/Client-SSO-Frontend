@@ -1,82 +1,76 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useState } from "react";
+import axios from "axios";
 
-const Login: React.FC = () => {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
-    const navigate = useNavigate();
+export default function Login() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
+  const [sisenseUrl, setSisenseUrl] = useState(null);
 
-  const handleLogin = async (e: React.FormEvent) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
+    setError(null);
+
     try {
-        const response = await axios.post('https://client-soo-backend.onrender.com/api/login', {
-            username,
-            password,
-        });
+      const response = await axios.post("https://client-soo-backend.onrender.com/api/login", {
+        username,
+        password,
+      });
 
-        // Store token in local storage
-        localStorage.setItem('token', response.data.token);
-
-        // Redirect to Home page immediately
-        navigate('/');
+      if (response.data.sisenseSSOUrl) {
+        setSisenseUrl(response.data.sisenseSSOUrl);
+      }
     } catch (err) {
-        setError('Invalid credentials');
+      setError("Invalid credentials. Please try again.");
     }
-};
+  };
 
-    return (
-        <div className="d-flex justify-content-center align-items-center vh-100 bg-light">
-            <div className="card shadow p-4" style={{ width: "350px" }}>
-                <div className="card-body">
-                    <h2 className="text-center mb-4">Login</h2>
-                    {error && <p className="text-danger text-center">{error}</p>}
-                    <form onSubmit={handleLogin}>
-                        {/* Username Field */}
-                        <div className="mb-3">
-                            <label className="form-label">Username</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                placeholder="Enter username"
-                                value={username}
-                                onChange={(e) => setUsername(e.target.value)}
-                                required
-                            />
-                        </div>
-
-                        {/* Password Field */}
-                        <div className="mb-3">
-                            <label className="form-label">Password</label>
-                            <input
-                                type="password"
-                                className="form-control"
-                                placeholder="Enter password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                required
-                            />
-                        </div>
-
-                        {/* Submit Button */}
-                        <div className="d-grid">
-                            <button type="submit" className="btn btn-primary">
-                                Login
-                            </button>
-                        </div>
-                    </form>
-
-                    {/* Additional Links */}
-                    <div className="text-center mt-3">
-                        <a href="#" className="text-decoration-none">
-                            Forgot Password?
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
-};
-
-export default Login;
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-gray-100">
+      <div className="p-8 bg-white shadow-md rounded-xl w-96">
+        <h2 className="text-2xl font-semibold mb-4 text-center">Sisense Login</h2>
+        {error && <p className="text-red-500 text-sm text-center">{error}</p>}
+        <form onSubmit={handleLogin}>
+          <div className="mb-4">
+            <label className="block text-gray-700">Username</label>
+            <input
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              className="w-full p-2 border rounded-md"
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700">Password</label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full p-2 border rounded-md"
+              required
+            />
+          </div>
+          <button
+            type="submit"
+            className="w-full bg-blue-600 text-white p-2 rounded-md hover:bg-blue-700"
+          >
+            Login
+          </button>
+        </form>
+        {sisenseUrl && (
+          <div className="mt-4 text-center">
+            <a
+              href={sisenseUrl}
+              className="text-blue-600 hover:underline"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Go to Sisense Dashboard
+            </a>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
