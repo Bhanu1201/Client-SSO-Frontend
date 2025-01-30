@@ -13,7 +13,7 @@ const Home: React.FC = () => {
         if (!token) {
             setError('No token found. Redirecting to login...');
             navigate('/login');  // Redirect to login if no token
-            return;
+            return console.log("token removed");
         }
 
         try {
