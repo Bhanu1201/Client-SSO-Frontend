@@ -20,7 +20,7 @@ const Login: React.FC = () => {
         localStorage.setItem('token', response.data.token);
 
         // Redirect to Home page without refresh
-        navigate('/home');
+        navigate('/Home');
     } catch (err) {
         setError('Invalid credentials');
     }
