@@ -8,19 +8,24 @@ const Login: React.FC = () => {
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
-    const handleLogin = async (e: React.FormEvent) => {
-        e.preventDefault();
-        try {
-            const response = await axios.post('https://client-soo-backend.onrender.com/api/login', {
-                username,
-                password,
-            });
-            localStorage.setItem('token', response.data.token);
-            navigate('/');
-        } catch (err) {
-            setError('Invalid credentials');
-        }
-    };
+   const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+        const response = await axios.post('https://client-soo-backend.onrender.com/api/login', {
+            username,
+            password,
+        });
+
+        // Store token
+        localStorage.setItem('token', response.data.token);
+
+        // Redirect to Home page without refresh
+        navigate('/home');
+    } catch (err) {
+        setError('Invalid credentials');
+    }
+};
+
 
     return (
         <div className="d-flex justify-content-center align-items-center vh-100 bg-light">
