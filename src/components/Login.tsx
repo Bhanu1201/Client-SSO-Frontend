@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import "./App.css"; // Import CSS file
 
-const SISENSE_BACKEND_URL = "http://localhost:3000/sisense/jwt"; // Backend API
+const SISENSE_BACKEND_URL = "https://client-soo-backend.onrender.com"; // Backend API
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState("");
