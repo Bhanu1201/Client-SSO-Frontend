@@ -21,7 +21,7 @@ const Login: React.FC = () => {
       setLoading(true);
       setError(null);
 
-      const response = await axios.get(${SISENSE_BACKEND_URL}/sisense/jwt, {
+      const response = await axios.get(`${SISENSE_BACKEND_URL}/sisense/jwt`, {
         params: { email, tenantId, returnUrl: sisenseUrl },
       });
 
