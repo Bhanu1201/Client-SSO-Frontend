@@ -1,82 +1,76 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import axios from "axios";
+import "./App.css"; // Import CSS file
+
+const SISENSE_BACKEND_URL = "http://localhost:3000/sisense/jwt"; // Backend API
 
 const Login: React.FC = () => {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
-    const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [tenantId, setTenantId] = useState("");
+  const [sisenseUrl, setSisenseUrl] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-        const response = await axios.post('https://client-soo-backend.onrender.com/api/login', {
-            username,
-            password,
-        });
-
-        // Store token in local storage
-        localStorage.setItem('token', response.data.token);
-
-        // Redirect to Home page immediately
-        navigate('/');
-    } catch (err) {
-        setError('Invalid credentials');
+  const handleLogin = async () => {
+    if (!email || !tenantId || !sisenseUrl) {
+      setError("Please fill in all fields.");
+      return;
     }
-};
 
-    return (
-        <div className="d-flex justify-content-center align-items-center vh-100 bg-light">
-            <div className="card shadow p-4" style={{ width: "350px" }}>
-                <div className="card-body">
-                    <h2 className="text-center mb-4">Login</h2>
-                    {error && <p className="text-danger text-center">{error}</p>}
-                    <form onSubmit={handleLogin}>
-                        {/* Username Field */}
-                        <div className="mb-3">
-                            <label className="form-label">Username</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                placeholder="Enter username"
-                                value={username}
-                                onChange={(e) => setUsername(e.target.value)}
-                                required
-                            />
-                        </div>
+    try {
+      setLoading(true);
+      setError(null);
 
-                        {/* Password Field */}
-                        <div className="mb-3">
-                            <label className="form-label">Password</label>
-                            <input
-                                type="password"
-                                className="form-control"
-                                placeholder="Enter password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                required
-                            />
-                        </div>
+      const response = await axios.get(SISENSE_BACKEND_URL, {
+        params: { email, tenantId, returnUrl: sisenseUrl },
+      });
 
-                        {/* Submit Button */}
-                        <div className="d-grid">
-                            <button type="submit" className="btn btn-primary">
-                                Login
-                            </button>
-                        </div>
-                    </form>
+      window.location.href = response.request.responseURL; // Redirect to Sisense
 
-                    {/* Additional Links */}
-                    <div className="text-center mt-3">
-                        <a href="#" className="text-decoration-none">
-                            Forgot Password?
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
+    } catch (err) {
+      setError("Failed to authenticate. Please try again.");
+      console.error("SSO Error:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="container">
+      <div className="card">
+        <h2>Sisense SSO Login</h2>
+        <input
+          type="email"
+          placeholder="Enter your Sisense email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="input-field"
+        />
+        <input
+          type="text"
+          placeholder="Tenant ID"
+          value={tenantId}
+          onChange={(e) => setTenantId(e.target.value)}
+          className="input-field"
+        />
+        <input
+          type="text"
+          placeholder="Sisense URL (e.g., https://your-sisense.com)"
+          value={sisenseUrl}
+          onChange={(e) => setSisenseUrl(e.target.value)}
+          className="input-field"
+        />
+        {error && <p className="error-message">{error}</p>}
+        <button
+          onClick={handleLogin}
+          disabled={loading}
+          className="login-button"
+        >
+          {loading ? "Authenticating..." : "Login with Sisense"}
+        </button>
+      </div>
+    </div>
+  );
 };
 
 export default Login;
