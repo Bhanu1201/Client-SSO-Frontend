@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 
 
-const SISENSE_BACKEND_URL = "https://client-soo-backend.onrender.com/sisense/jwt"; // Backend API
+const SISENSE_BACKEND_URL = "https://client-soo-backend.onrender.com"; // Backend API
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -21,7 +21,7 @@ const Login: React.FC = () => {
       setLoading(true);
       setError(null);
 
-      const response = await axios.get(SISENSE_BACKEND_URL, {
+      const response = await axios.get(SISENSE_BACKEND_URL/sisense/jwt, {
         params: { email, tenantId, returnUrl: sisenseUrl },
       });
 
