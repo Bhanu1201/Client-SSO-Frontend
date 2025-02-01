@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import "./App.css"; // Import CSS file
+
 
 const SISENSE_BACKEND_URL = "https://client-soo-backend.onrender.com/sisense/jwt"; // Backend API
 
