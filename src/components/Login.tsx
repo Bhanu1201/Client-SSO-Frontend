@@ -7,6 +7,7 @@ const SISENSE_BACKEND_URL = "https://client-soo-backend.onrender.com"; // Backen
 const Login: React.FC = () => {
   const [email, setEmail] = useState("");
   const [tenantId, setTenantId] = useState("");
+  const [tenantName, setTenantName] = useState("");
   const [sisenseUrl, setSisenseUrl] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -22,7 +23,7 @@ const Login: React.FC = () => {
       setError(null);
 
       const response = await axios.get(`${SISENSE_BACKEND_URL}/sisense/jwt`, {
-        params: { email, tenantId, returnUrl: sisenseUrl },
+        params: { email, tenantId, returnUrl: sisenseUrl, tenantName },
       });
 
       window.location.href = response.request.responseURL; // Redirect to Sisense
@@ -51,6 +52,13 @@ const Login: React.FC = () => {
           placeholder="Tenant ID"
           value={tenantId}
           onChange={(e) => setTenantId(e.target.value)}
+          className="input-field"
+        />
+          <input
+          type="text"
+          placeholder="Tenant Name"
+          value={tenantName}
+          onChange={(e) => setTenantName(e.target.value)}
           className="input-field"
         />
         <input
